@@ -6,4 +6,4 @@ Es totalmente gratis abierto para cualquier persona.
 opensource free
 
 # Imagen de ejemplo de página generada
-<img src="ejemplo.PNG" width=270 height=480>
+<img src="ejemplo.PNG">
