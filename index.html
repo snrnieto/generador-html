@@ -1,0 +1,184 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Draggable - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body>
+
+
+<div class="row">
+
+  <div class="col1" id="col1"></div>
+  <div class="col2">
+      <button id="btn-texto">Agregar Texto</button>
+      <button id="btn-descargar">Descargar página</button>
+  </div>
+</div>
+  
+  
+ <style>
+
+  html, body {
+   max-width: 100%;
+   overflow-x: hidden;
+  overflow-y: auto;
+   height:100%;
+   
+}
+
+.row{
+  display:flex;
+}
+
+.col1{
+  flex:7;
+}
+.col2{
+  flex:3;
+  width:100%;
+  height:100%;
+  border-left-style: solid;
+  display:flex;
+  flex-direction:column;
+  text-align:center;
+  background-color:#c7c8c9;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltipcontainer {
+  
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltipcontainer {
+  visibility: visible;
+}</style>
+ 
+ 
+ <script>
+ var principal = document.getElementById("col1");  
+
+// $( function() {
+//     for (var i = 0; i <= contador; i++) {
+//       console.log(i);
+//       $( "#text"+i.toString()).draggable();
+//   }
+//   } );
+
+
+
+var contador=0;
+
+$( "#btn-texto" ).click(function() {
+  nuevo_componente=`    
+      <div id="text${contador}" class="tooltip">
+            <p style="font-size:24px" id="texto${contador}" class="texto">Texto ${contador}</p>
+            <div class="tooltipcontainer">
+              <select onchange="fontSizeSelect(event,${contador})" >
+                <option value="16">XS</option>
+                <option value="20">S</option>
+                <option value="24" selected>M</option>
+                <option value="30">G</option>
+                <option value="40">XG</option>
+              </select>
+              <button id="btn-negrita" onclick="clickNegrita(${contador})">Negrita</button>
+              <button onclick="clickBorrar(${contador})">Borrar</button>
+            </div>
+      </div>
+      `;
+  
+      $( "#col1" ).append(nuevo_componente);
+
+  $("#text"+contador).draggable();
+  contador+=1;
+  
+
+  
+  $(".texto").dblclick(function(event){
+    console.log(event.target);
+    componente=event.target
+      var nuevo_texto = prompt("Escribe el texto nuevo",$("#"+componente.id).text());
+
+      console.log(event.target);
+      $("#"+componente.id).text(nuevo_texto);
+  });
+  
+
+});//btn-texto
+
+function clickNegrita(id){
+  console.log(id)
+  $('#texto'+id).css({ 'font-weight': 'bold' });
+};//btn-negrita
+
+function clickBorrar(id){
+  $( "#texto"+id ).remove();
+}
+
+
+function fontSizeSelect(event,id) {
+
+    var selectElement = event.target;
+
+    var value = selectElement.value;
+    console.log(value);
+  console.log(id);
+  
+  $('#texto'+id).css("font-size", value + "px");
+}
+
+
+
+$( "#btn-descargar" ).click(function() {
+  
+  var markup = document.body.innerHTML;
+  console.log(markup);
+  download("index.html",markup)
+});
+
+
+
+
+
+
+
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+ </script>
+</body>
+</html>
