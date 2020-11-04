@@ -1,8 +1,12 @@
 <html>
+
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>jQuery UI Draggable - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -12,9 +16,13 @@
 
 <div class="row">
 
-  <div class="col1" id="col1"></div>
+  <div class="col1" id="col1">
+
+  </div>
+  
   <div class="col2">
       <button id="btn-texto">Agregar Texto</button>
+      <button id="btn-imagen">Agregar imagen</button>
       <button id="btn-descargar">Descargar página</button>
   </div>
 </div>
@@ -62,7 +70,6 @@
   background-color: black;
   color: #fff;
   text-align: center;
-  padding: 5px 0;
   margin-top:-30px;
   border-radius: 6px;
  
@@ -77,9 +84,8 @@
   visibility: visible;
 }</style>
  
- 
- <script>
- var principal = document.getElementById("col1");  
+  <script>
+    var principal = document.getElementById("col1");  
 
 // $( function() {
 //     for (var i = 0; i <= contador; i++) {
@@ -178,6 +184,24 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
- </script>
+contador_imagenes=0
+$( "#btn-imagen" ).click(function() {
+    nueva_imagen=`    
+           <div style="border-rigth:solid 1px" id="img-draggable${contador_imagenes}" class="resizable${contador_imagenes}">
+      <img style="width:100%" src="http://lorempixel.com/400/200/" alt="">
+    </div>
+      `;
+  
+    $( "#col1").append(nueva_imagen);
+
+  $("#img-draggable"+contador_imagenes).draggable();
+  $( ".resizable"+contador_imagenes).resizable();
+  contador_imagenes+=1;
+});
+
+
+  </script>
 </body>
 </html>
+
+ 
