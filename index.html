@@ -153,7 +153,7 @@
  
   
   <script>
-    var principal = document.getElementById("col1");  
+  var principal = document.getElementById("col1");  
 
 // $( function() {
 //     for (var i = 0; i <= contador; i++) {
@@ -166,11 +166,19 @@
 
 var contador=0;
 
+function changeTextColor(e,id){
+  var color_nuevo=$("#text-color"+id).val();
+  $("#texto"+id).css('color', color_nuevo);
+  console.log(id);
+  console.log(color_nuevo)
+}
+
 $( "#btn-texto" ).click(function() {
   nuevo_componente=`    
       <div id="text${contador}" class="tooltip">
             <p style="font-size:24px" id="texto${contador}" class="texto">Texto ${contador}</p>
             <div class="tooltipcontainer">
+<input id="text-color${contador}" type="color" value="#000000" onchange="changeTextColor(event,${contador})">
               <select onchange="fontSizeSelect(event,${contador})" >
                 <option value="16">XS</option>
                 <option value="20">S</option>
@@ -312,6 +320,7 @@ src="https://www.youtube.com/embed/tgbNymZ7vqY">
   $("#video-draggable"+contador_videos).draggable();
   contador_videos+=1;
 });
+
 
   </script>
 </body>
